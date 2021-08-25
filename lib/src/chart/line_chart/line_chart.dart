@@ -140,6 +140,55 @@ class _LineChartState extends AnimatedWidgetBaseState<LineChart> {
               _touchHandler!.handleTouch(FlPanMoveUpdate(details.localPosition), chartSize);
           touchData.touchCallback?.call(response);
         },
+        onVerticalDragCancel: () {
+          final chartSize = _getChartSize();
+          if (chartSize == null || _touchHandler == null) {
+            return;
+          }
+
+          final response = _touchHandler!.handleTouch(
+              FlPanEnd(Offset.zero, const Velocity(pixelsPerSecond: Offset.zero)), chartSize);
+          touchData.touchCallback?.call(response);
+        },
+        onVerticalDragEnd: (DragEndDetails details) {
+          final chartSize = _getChartSize();
+          if (chartSize == null || _touchHandler == null) {
+            return;
+          }
+
+          final response =
+          _touchHandler!.handleTouch(FlPanEnd(Offset.zero, details.velocity), chartSize);
+          touchData.touchCallback?.call(response);
+        },
+        onVerticalDragDown: (DragDownDetails details) {
+          final chartSize = _getChartSize();
+          if (chartSize == null || _touchHandler == null) {
+            return;
+          }
+
+          final response = _touchHandler!.handleTouch(FlPanStart(details.localPosition), chartSize);
+          touchData.touchCallback?.call(response);
+        },
+        onVerticalDragUpdate: (DragUpdateDetails details) {
+          final chartSize = _getChartSize();
+          if (chartSize == null || _touchHandler == null) {
+            return;
+          }
+
+          final response =
+          _touchHandler!.handleTouch(FlPanMoveUpdate(details.localPosition), chartSize);
+          touchData.touchCallback?.call(response);
+        },
+        onVerticalDragStart: (DragStartDetails details) {
+          final chartSize = _getChartSize();
+          if (chartSize == null || _touchHandler == null) {
+            return;
+          }
+
+          final response =
+          _touchHandler!.handleTouch(FlPanMoveUpdate(details.localPosition), chartSize);
+          touchData.touchCallback?.call(response);
+        },
         child: CustomPaint(
           key: _chartKey,
           size: getDefaultSize(MediaQuery.of(context).size),
